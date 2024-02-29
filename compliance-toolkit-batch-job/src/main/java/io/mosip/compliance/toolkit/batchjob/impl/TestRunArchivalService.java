@@ -62,58 +62,58 @@ public class TestRunArchivalService {
 							+ LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
 					List<String> collectionIds = testRunRepository
 							.getCollectionIdsForTestRunsToBeArchived(archiveOffset);
-					LOGGER.info("Total number of collections for which test runs are to be archived: "
+					LOGGER.debug("Total number of collections for which test runs are to be archived: "
 							+ collectionIds.size());
 					for (String collectionId : collectionIds) {
-						LOGGER.info("----------------------------------------------------------------------------");
+						LOGGER.debug("----------------------------------------------------------------------------");
 						// validate if this collection id
 						Optional<ComplianceTestRunSummaryEntity> optionalEntity = complianceTestRunSummaryRepository
 								.getComplianceTestRunSummaryForCollectionId(collectionId);
 						if (!optionalEntity.isPresent()) {
 							if (!revertCollectionIds.contains(collectionId)) {
-								LOGGER.info("Starting test run archival for collection_id: " + collectionId);
+								LOGGER.debug("Starting test run archival for collection_id: " + collectionId);
 								List<String> testRunIds = testRunRepository.getTestRunsForCollectionId(collectionId);
-								LOGGER.info("Total number of test runs available: " + testRunIds.size());
+								LOGGER.debug("Total number of test runs available: " + testRunIds.size());
 								int index = 0;
 								int count = testRunIds.size() - archiveOffset;
-								LOGGER.info("Total number of test runs to be archived: " + count);
+								LOGGER.debug("Total number of test runs to be archived: " + count);
 								for (String testRunId : testRunIds) {
 									if (index < count) {
-										LOGGER.info("Archiving test run with id: " + testRunId);
+										LOGGER.debug("Archiving test run with id: " + testRunId);
 										this.archiveTestRun(testRunId);
-										LOGGER.info("Archival done for test run with id: " + testRunId);
+										LOGGER.debug("Archival done for test run with id: " + testRunId);
 									} else {
 										break;
 									}
 									index++;
 								}
 							} else {
-								LOGGER.info(
+								LOGGER.debug(
 										"This collection archival is to be reverted, hence cannot archive the test run collection_id: "
 												+ collectionId);
 							}
 						} else {
-							LOGGER.info(
+							LOGGER.debug(
 									"Reports are associated for this collection, hence cannot archive the test run collection_id: "
 											+ collectionId);
 						}
-						LOGGER.info("----------------------------------------------------------------------------");
+						LOGGER.debug("----------------------------------------------------------------------------");
 					}
 				} else {
-					LOGGER.info("Archive offset should be more than or equal to 0");
+					LOGGER.debug("Archive offset should be more than or equal to 0");
 				}
 				// now do the revert for any collection ids, if specified
 				if (!revertCollectionIds.isEmpty()) {
-					LOGGER.info("Forcefully reverting test run archival for collection ids : "
+					LOGGER.debug("Forcefully reverting test run archival for collection ids : "
 							+ revertCollectionIds.size());
 					for (String collectionId : revertCollectionIds) {
 						List<String> testRunIds = testRunArchiveRepository.getTestRunsForCollectionId(collectionId);
-						LOGGER.info("Total number of test runs to be reverted for the collection: " + collectionId
+						LOGGER.debug("Total number of test runs to be reverted for the collection: " + collectionId
 								+ " is: " + testRunIds.size());
 						for (String testRunId : testRunIds) {
-							LOGGER.info("Reverting archival of test run with id: " + testRunId);
+							LOGGER.debug("Reverting archival of test run with id: " + testRunId);
 							this.revertArchiveTestRun(testRunId);
-							LOGGER.info("Reverting of archival done for test run with id: " + testRunId);
+							LOGGER.debug("Reverting of archival done for test run with id: " + testRunId);
 						}
 					}
 				}
