@@ -64,7 +64,7 @@ ENV loader_path_env=${loader_path}
 # change volume to whichever storage directory you want to use for this container.
 VOLUME /home/logs /home/Glowroot
 
-COPY ./target/mosip-compliance-toolkit-batch-job-*.jar mosip-compliance-toolkit-batch-job.jar
+COPY ./target/compliance-toolkit-batch-job-*.jar compliance-toolkit-batch-job.jar
 
 # change permissions of file inside working dir
 RUN chown -R ${container_user}:${container_user} /home/${container_user}
@@ -77,10 +77,10 @@ EXPOSE 8099
 CMD if [ "$is_glowroot_env" = "present" ]; then \
     unzip glowroot.zip ; \
     rm -rf glowroot.zip ; \
-    sed -i 's/<service_name>/mosip-compliance-toolkit-batch-job/g' glowroot/glowroot.properties ; \
-    java -Dloader.path="${loader_path_env}" -jar -javaagent:glowroot/glowroot.jar -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mosip-compliance-toolkit-batch-job.jar ; \
+    sed -i 's/<service_name>/compliance-toolkit-batch-job/g' glowroot/glowroot.properties ; \
+    java -Dloader.path="${loader_path_env}" -jar -javaagent:glowroot/glowroot.jar -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" compliance-toolkit-batch-job.jar ; \
     else \
-    java -Dloader.path="${loader_path_env}" -jar -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" mosip-compliance-toolkit-batch-job.jar ; \
+    java -Dloader.path="${loader_path_env}" -jar -Dspring.cloud.config.label="${spring_config_label_env}" -Dspring.profiles.active="${active_profile_env}" -Dspring.cloud.config.uri="${spring_config_url_env}" compliance-toolkit-batch-job.jar ; \
     fi
 
-#CMD ["java","-Dspring.cloud.config.label=${spring_config_label_env}","-Dspring.profiles.active=${active_profile_env}","-Dspring.cloud.config.uri=${spring_config_url_env}","-jar","-javaagent:/home/Glowroot/glowroot.jar","mosip-compliance-toolkit-batch-job.jar"]
+#CMD ["java","-Dspring.cloud.config.label=${spring_config_label_env}","-Dspring.profiles.active=${active_profile_env}","-Dspring.cloud.config.uri=${spring_config_url_env}","-jar","-javaagent:/home/Glowroot/glowroot.jar","compliance-toolkit-batch-job.jar"]
