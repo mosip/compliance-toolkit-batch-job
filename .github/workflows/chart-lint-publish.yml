@@ -37,8 +37,6 @@ on:
       - develop
       - MOSIP*
       - release*
-    paths:
-      - './helm/**'
 
 jobs:
   chart-lint-publish:
