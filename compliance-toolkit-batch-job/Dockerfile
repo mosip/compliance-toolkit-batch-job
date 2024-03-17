@@ -59,7 +59,7 @@ COPY ./target/compliance-toolkit-batch-job-*.jar compliance-toolkit-batch-job.ja
 RUN apt-get -y update \
 && apt-get install -y unzip \
 && groupadd -g ${container_user_gid} ${container_user_group} \
-&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user}
+&& useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
 && mkdir -p ${loader_path} \
 && chown -R ${container_user}:${container_user} /home/${container_user}
 
