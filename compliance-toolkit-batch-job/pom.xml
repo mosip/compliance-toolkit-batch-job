@@ -68,8 +68,8 @@
 		<jose4j.version>0.7.1</jose4j.version>
 		<io.micrometer.prometheus.version>1.4.2</io.micrometer.prometheus.version>
 		<!-- MOSIP -->
-		<kernel.version>1.2.0.1-B1</kernel.version>
-		<kernel.logger.logback.version>1.2.0.1-B1</kernel.logger.logback.version>
+		<kernel.version>1.2.0.1</kernel.version>
+		<kernel.logger.logback.version>1.2.0.1</kernel.logger.logback.version>
 	</properties>
 	<dependencies>
 		<dependency>
