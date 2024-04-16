@@ -2,7 +2,7 @@ apiVersion: v2
 name: compliance-toolkit-batch-job
 description: A Helm chart for MOSIP compliance toolkit batchjob service
 type: application
-version: 1.0.0
+version: 1.4.0
 appVersion: ""
 dependencies:
   - name: common
