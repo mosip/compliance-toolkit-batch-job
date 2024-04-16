@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.mosip.compliance</groupId>
 	<artifactId>compliance-toolkit-batch-job</artifactId>
-	<version>1.4.0-SNAPSHOT</version>
+	<version>1.4.0</version>
 	<name>compliance-toolkit-batch-job</name>
 	<description>compliance toolkit batch job</description>
 
