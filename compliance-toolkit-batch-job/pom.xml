@@ -13,6 +13,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>compliance-toolkit-batch-job</name>
 	<description>compliance toolkit batch job</description>
+	<url>https://github.com/mosip/compliance-toolkit-batch-job</url>
 
 	<licenses>
 		<license>
