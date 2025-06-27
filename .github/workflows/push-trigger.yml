@@ -20,6 +20,7 @@ on:
       - 1.*
       - 0.*
       - develop
+      - MOSIP*
 
 jobs:
   build-maven-compliance-toolkit-batch-job:
