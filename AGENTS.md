@@ -35,7 +35,7 @@ are owned and migrated by `mosip-compliance-toolkit`, not by this repo.
   property in `pom.xml`)
 - **Packaging**: Spring Boot executable JAR (`spring-boot-maven-plugin`,
   `repackage` goal), then a Docker image (`compliance-toolkit-batch-job/Dockerfile`,
-  base image `openjdk:11`)
+  base image `eclipse-temurin:11-jre-jammy`)
 - **Deployment**: Helm chart at `helm/compliance-toolkit-batch-job/`
 
 ## Build & Test Commands
@@ -109,7 +109,12 @@ equivalent). Secrets/config are supplied at deploy time by:
 - The Dockerfile's `CMD`, which downloads the IAM adapter jar at container
   startup (`wget "${iam_adapter_url_env}" -O .../kernel-auth-adapter.jar`)
   rather than baking it into the image — the URL is an environment variable
-  injected by the deployment, not a value checked into this repo.
+  injected by the deployment, not a value checked into this repo. `wget`
+  performs no digest, checksum, or signature check on the download, so a
+  misconfigured or compromised URL can execute arbitrary code from
+  `${loader.path}` with the app's full privileges. The deployment must use
+  an allowlisted HTTPS URL and verify a pinned digest or signature before
+  starting the adapter; fail closed on mismatch.
 
 Never commit real database passwords, config-server URLs for production
 environments, or IAM/adapter URLs into `application.properties`,
