@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre-jammy@sha256:372c96aef3c1c32281ecffbf9aa10de22ef9d8335c60033c2498a2ed4edcdb6f
+FROM eclipse-temurin:11-jre-jammy
 
 ARG SOURCE
 ARG COMMIT_HASH
