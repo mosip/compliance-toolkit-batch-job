@@ -35,7 +35,7 @@ are owned and migrated by `mosip-compliance-toolkit`, not by this repo.
   property in `pom.xml`)
 - **Packaging**: Spring Boot executable JAR (`spring-boot-maven-plugin`,
   `repackage` goal), then a Docker image (`compliance-toolkit-batch-job/Dockerfile`,
-  base image `eclipse-temurin:11-jre-jammy`)
+  base image `openjdk:11`)
 - **Deployment**: Helm chart at `helm/compliance-toolkit-batch-job/`
 
 ## Build & Test Commands
@@ -69,8 +69,12 @@ filter**, so it runs for every push/PR regardless of which files changed, not
 just Java changes. It also builds and pushes a Docker image, and (outside pull
 requests) publishes to Nexus and runs Sonar analysis.
 
-The Helm chart has its own workflow, `.github/workflows/chart-lint-publish.yml`,
-which **is** path-scoped: it only runs on pull requests that touch `helm/**`.
+The Helm chart has its own workflow, `.github/workflows/chart-lint-publish.yml`.
+It is path-scoped (`paths: [helm/**]`) only for its `pull_request` trigger —
+a PR only runs chart-lint if it touches `helm/**`. Its `push` trigger (to
+`develop`, `master`, `release*`, `1.*`, `0.*`) has **no** path filter, so
+every push to those branches runs chart-lint regardless of which files
+changed. Do not assume pushes are path-scoped the way pull requests are.
 
 ## Configuration
 
@@ -207,6 +211,12 @@ guidance would only fragment it without adding clarity.
     `.split(',')` even when empty, which yields a one-element list containing
     an empty string — `TestRunArchivalService` handles this correctly, but
     keep it in mind if you touch that parsing logic.
+- **Archival is skipped per collection if a compliance test-run summary
+  already exists.** In `TestRunArchivalService.performArchival`, a
+  `collectionId` is only archived when
+  `ComplianceTestRunSummaryRepository.getComplianceTestRunSummaryForCollectionId`
+  returns empty; if a summary row exists for that collection, its test runs
+  are left alone regardless of `archiveOffset`.
 - **Shared database with `mosip-compliance-toolkit`.** This job reads and
   writes tables it does not own the schema for. Coordinate any entity/column
   changes with that repository first.
