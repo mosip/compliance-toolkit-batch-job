@@ -35,7 +35,7 @@ are owned and migrated by `mosip-compliance-toolkit`, not by this repo.
   property in `pom.xml`)
 - **Packaging**: Spring Boot executable JAR (`spring-boot-maven-plugin`,
   `repackage` goal), then a Docker image (`compliance-toolkit-batch-job/Dockerfile`,
-  base image `openjdk:11`)
+  base image `eclipse-temurin:11-jre-jammy`)
 - **Deployment**: Helm chart at `helm/compliance-toolkit-batch-job/`
 
 ## Build & Test Commands
