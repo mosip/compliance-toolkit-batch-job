@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.mosip.compliance</groupId>
 	<artifactId>compliance-toolkit-batch-job</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1</version>
 	<name>compliance-toolkit-batch-job</name>
 	<description>compliance toolkit batch job</description>
 	<url>https://github.com/mosip/compliance-toolkit-batch-job</url>
@@ -71,7 +71,7 @@
 		<!-- MOSIP -->
 		<kernel.version>1.2.0.1</kernel.version>
 		<kernel.logger.logback.version>1.2.0.1</kernel.logger.logback.version>
-		<maven.deploy.plugin.version>2.8.1</maven.deploy.plugin.version>
+		<maven.deploy.plugin.version>3.1.1</maven.deploy.plugin.version>
 		<central.publishing.maven.plugin.version>0.7.0</central.publishing.maven.plugin.version>
 	</properties>
 	<dependencies>
@@ -273,6 +273,15 @@
 				<artifactId>central-publishing-maven-plugin</artifactId>
 				<version>${central.publishing.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>default-publish</id>
+						<phase>none</phase>
+						<goals>
+							<goal>publish</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<publishingServerId>ossrh</publishingServerId>
 					<autoPublish>false</autoPublish>
